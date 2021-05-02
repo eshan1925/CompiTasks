@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tasker/Widgets/tasks_list.dart';
+import 'package:tasker/screens/add_task_screen.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -8,6 +10,13 @@ class TasksScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => AddTaskScreen(),
+          );
+        },
         child: Icon(Icons.add),
       ),
       body: Column(
@@ -31,7 +40,7 @@ class TasksScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'Tasker',
+                  'CompiTasks',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 50,
@@ -46,6 +55,7 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -53,6 +63,7 @@ class TasksScreen extends StatelessWidget {
                   topLeft: Radius.circular(20),
                 ),
               ),
+              child: TasksList(),
             ),
           )
         ],
