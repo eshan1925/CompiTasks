@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "904758514623",
+    "project_id": "compitasks",
+    "storage_bucket": "compitasks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904758514623:android:5aeadd24df25b4af46c70a",
+        "android_client_info": {
+          "package_name": "com.eshan.tasker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904758514623-qs0c124q3jje8mqltnmr0nept8hdir8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0yWJ2dViHpp7j_GImtdnlOQ4Ljs2rs3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904758514623-qs0c124q3jje8mqltnmr0nept8hdir8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
