@@ -29,7 +29,7 @@ class AddTaskScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.girassol(
                   textStyle:
-                      TextStyle(color: Colors.lightBlueAccent, fontSize: 30),
+                      TextStyle(color: Colors.red.shade900, fontSize: 30),
                 ),
               ),
             ),
@@ -56,7 +56,7 @@ class AddTaskScreen extends StatelessWidget {
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              color: Colors.lightBlueAccent,
+              color: Colors.red.shade900,
               onPressed: () {
                 Provider.of<TaskData>(context, listen: false)
                     .addTask(newTaskTitle);

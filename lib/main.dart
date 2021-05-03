@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasker/Widgets/tasks_list.dart';
 import 'package:tasker/models/task_data.dart';
+import 'package:tasker/screens/About.dart';
 import 'package:tasker/screens/Intro.dart';
 import 'package:tasker/screens/Login_Screen.dart';
 import 'package:tasker/screens/Signup_Screen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: WelcomeScreen(),
         routes: {
+          AboutUs.id: (context) => AboutUs(),
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
           TasksScreen.id: (context) => TasksScreen(),
