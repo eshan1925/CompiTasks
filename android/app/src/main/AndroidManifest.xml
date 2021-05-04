@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eshan.tasker">
    <application
-        android:label="tasker"
+        android:label="CompiTasks"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

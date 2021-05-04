@@ -32,13 +32,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
+    controller.dispose();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: animation.value,
+      // backgroundColor: animation.value,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -60,41 +60,43 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       'images/logo.jpeg',
                       colorBlendMode: BlendMode.clear,
                     ),
-                    height: 120.0,
-                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 27, 28, 30),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color.fromARGB(130, 237, 125, 58),
+                              blurRadius: 15,
+                              spreadRadius: 15)
+                        ]),
                   ),
                 ),
               ),
               SizedBox(height: 12),
-              Row(
-                children: <Widget>[
-                  // ignore: deprecated_member_use
-                  TypewriterAnimatedTextKit(
-                    speed: Duration(milliseconds: 250),
-                    textAlign: TextAlign.center,
-                    text: ['      Compi-Tasks'],
-                    textStyle: GoogleFonts.girassol(
-                      textStyle: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        fontSize: 45.0,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
+              // ignore: deprecated_member_use
+              TypewriterAnimatedTextKit(
+                speed: Duration(milliseconds: 250),
+                textAlign: TextAlign.center,
+                text: ['     Compi-Tasks  '],
+                textStyle: GoogleFonts.girassol(
+                  textStyle: TextStyle(
+                    color: Colors.red.shade900,
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.w900,
                   ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 48.0,
               ),
               RoundedButton(
-                colour: Colors.blueAccent,
+                colour: Colors.red.shade400,
                 onPressed: () {
                   Navigator.pushNamed(context, LoginScreen.id);
                 },
                 title: 'Log-in',
               ),
               RoundedButton(
-                colour: Colors.blueAccent,
+                colour: Colors.red.shade400,
                 onPressed: () {
                   Navigator.pushNamed(context, RegistrationScreen.id);
                 },

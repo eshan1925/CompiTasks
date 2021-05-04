@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 24.0,
                 ),
                 RoundedButton(
-                    colour: Colors.blueAccent,
+                    colour: Colors.redAccent,
                     onPressed: () async {
                       setState(() {
                         showSpinner = true;
@@ -88,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
+                        print(user.user.uid);
                         if (user != null) {
                           Navigator.pushNamed(context, TasksScreen.id);
                         }
