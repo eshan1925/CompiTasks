@@ -1,14 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:tasker/models/task_data.dart';
-import 'package:tasker/models/task.dart';
 import 'package:tasker/models/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tasker/screens/tasks_screen.dart';
 
+final _firestore = FirebaseFirestore.instance;
+final _auth = FirebaseAuth.instance;
+User loggedInUser;
+
+// ignore: must_be_immutable
 class AddTaskScreen extends StatelessWidget {
+  void getCurrentUser() async {
+    try {
+      // ignore: await_only_futures
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String newTaskTitle;
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -34,11 +51,12 @@ class AddTaskScreen extends StatelessWidget {
               ),
             ),
             TextField(
+              controller: taskTextController,
+              onChanged: (value) {
+                taskText = value;
+              },
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
-              onChanged: (newText) {
-                newTaskTitle = newText;
-              },
               decoration:
                   kTextFieldDecoration.copyWith(hintText: 'Start typing...'),
             ),
@@ -58,9 +76,14 @@ class AddTaskScreen extends StatelessWidget {
               ),
               color: Colors.red.shade900,
               onPressed: () {
-                Provider.of<TaskData>(context, listen: false)
-                    .addTask(newTaskTitle);
-                Navigator.pop(context);
+                taskTextController.clear();
+                _firestore.collection('Tasks').add({
+                  'task': taskText,
+                  'sender': loggedInUser.email,
+                  'timestamp': FieldValue.serverTimestamp(),
+                  'userid': loggedInUser.uid,
+                });
+                Navigator.pushNamed(context, TasksScreen.id);
               },
             )
           ],

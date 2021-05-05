@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tasker/Widgets/tasks_list.dart';
 import 'package:tasker/models/task_data.dart';
 import 'package:tasker/screens/About.dart';
 import 'package:tasker/screens/Intro.dart';
@@ -16,19 +14,57 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  // ignore: non_constant_identifier_names
+  Widget SomethingWentWrong() {
+    return Container(
+      child: Text('Something went wrong'),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  Widget Loading() {
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TaskData(),
-      child: MaterialApp(
-        home: WelcomeScreen(),
-        routes: {
-          AboutUs.id: (context) => AboutUs(),
-          LoginScreen.id: (context) => LoginScreen(),
-          RegistrationScreen.id: (context) => RegistrationScreen(),
-          TasksScreen.id: (context) => TasksScreen(),
-        },
-      ),
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return SomethingWentWrong();
+        }
+
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Appcontroller();
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return Loading();
+      },
+    );
+  }
+}
+
+class Appcontroller extends StatelessWidget {
+  const Appcontroller({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: WelcomeScreen(),
+      routes: {
+        AboutUs.id: (context) => AboutUs(),
+        LoginScreen.id: (context) => LoginScreen(),
+        RegistrationScreen.id: (context) => RegistrationScreen(),
+        WelcomeScreen.id:(context)=> WelcomeScreen(),
+        TasksScreen.id: (context) => TasksScreen(),
+      },
     );
   }
 }

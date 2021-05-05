@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:tasker/Widgets/tasks_list.dart';
+import 'package:tasker/Widgets/task_tile.dart';
 import 'package:tasker/models/task_data.dart';
 import 'package:tasker/screens/add_task_screen.dart';
 import 'package:tasker/models/Side_menu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final _firestore = FirebaseFirestore.instance;
+User loggedInUser;
+final taskTextController = TextEditingController();
+final _auth = FirebaseAuth.instance;
+String taskText;
 
 // ignore: must_be_immutable
 class TasksScreen extends StatefulWidget {
@@ -16,6 +23,40 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> {
   @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+      // ignore: await_only_futures
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void getTasks() async {
+    final messages = await _firestore.collection('Tasks').get();
+    for (var message in messages.docs) {
+      print(message.data());
+    }
+  }
+
+  void taskStream() async {
+    await for (var snapshot in _firestore.collection('Tasks').snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +65,7 @@ class _TasksScreenState extends State<TasksScreen> {
       ),
       drawer: SideMenu(),
       backgroundColor: Colors.lightBlueAccent,
+      //beginning of addition button
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red.shade900,
         child: Icon(Icons.add),
@@ -84,7 +126,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                   ),
                   Text(
-                    '${Provider.of<TaskData>(context).taskCount} Tasks',
+                    ' $taskCount Tasks',
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
@@ -100,9 +142,9 @@ class _TasksScreenState extends State<TasksScreen> {
                     topLeft: Radius.circular(20),
                   ),
                 ),
-                child: TasksList(),
+                child: TaskData(),
               ),
-            )
+            ),
           ],
         ),
       ),
