@@ -4,7 +4,8 @@ A new Flutter application.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+An app that lets you add your day to day tasks at a single place and also lets you delete them accordingly.
+COMPITASKS is 😍 in short.
 
 A few resources to get you started if this is your first Flutter project:
 
