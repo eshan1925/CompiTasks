@@ -6,8 +6,14 @@ import 'package:tasker/screens/Login_Screen.dart';
 import 'package:tasker/screens/Signup_Screen.dart';
 import 'screens/tasks_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 void main() async {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+    if (kReleaseMode) exit(1);
+  };
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -62,7 +68,7 @@ class Appcontroller extends StatelessWidget {
         AboutUs.id: (context) => AboutUs(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
-        WelcomeScreen.id:(context)=> WelcomeScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
         TasksScreen.id: (context) => TasksScreen(),
       },
     );

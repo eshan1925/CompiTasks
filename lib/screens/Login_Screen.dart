@@ -89,10 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
+                        selectedUserLog = user.user.email;
+                        print(selectedUserLog);
                         if (user != null) {
                           Navigator.pushNamed(context, TasksScreen.id);
-                          selectedUserLog = user.user.email;
-                          print(selectedUserLog);
                         }
                         setState(() {
                           showSpinner = false;

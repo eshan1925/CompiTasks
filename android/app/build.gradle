@@ -69,6 +69,7 @@ android {
     defaultConfig {
         multiDexEnabled true
     }
+    buildToolsVersion '30.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tasker/screens/Login_Screen.dart';
 
 final _auth = FirebaseAuth.instance;
-final taskTextController = TextEditingController();
 String taskText;
 final _firestore = FirebaseFirestore.instance;
 User loggedInUser;
@@ -37,7 +36,7 @@ class TaskData extends StatelessWidget with ChangeNotifier {
           // ignore: missing_return
           (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
-          return Center(
+          return new Center(
             child: CircularProgressIndicator(
               backgroundColor: Colors.blueAccent.shade400,
             ),
@@ -73,7 +72,7 @@ class TaskData extends StatelessWidget with ChangeNotifier {
           children: _tasksUser,
         );
       },
-      stream: _firestore.collection('task').orderBy('timestamp').snapshots(),
+      stream: _firestore.collection('Tasks').orderBy('timestamp').snapshots(),
     );
   }
 }
